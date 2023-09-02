@@ -25,10 +25,11 @@ const Form = () => {
 
   const [crypto, setCrypto] = useState([]);
   const [selectedCurrency, SelectCoins] = useSelectCoins('Choose a coin', currency);
+  const [selectedCrypto, SelectCrypto] = useSelectCoins('Choose Crypto', crypto);
 
   useEffect(() => {
     const queryAPI = async () => {
-      const url = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=10&tsym=USD";
+      const url = "https://min-api.cryptocompare.com/data/top/mktcapfull?limit=5&tsym=USD";
       const response = await fetch(url); //ok 200
       const result = await response.json() //success  Data
       //console.log(result.Data)
@@ -53,7 +54,7 @@ const Form = () => {
   return (
     <form>
       <SelectCoins />
-      {selectedCurrency}
+      <SelectCrypto/>
       <InputSubmit
         type='submit'
         value='Calculate'
