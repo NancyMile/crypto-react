@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styled from '@emotion/styled';
 import ImageCrypto from './img/imagen-criptos.png';
+import Form from './components/Form';
 
 const Container = styled.div`
   max-width:900px;
@@ -47,6 +48,7 @@ function App() {
       />
       <div>
         <Heading>Evaluate Coins Instantly</Heading>
+        <Form/>
       </div>
     </Container>
 
