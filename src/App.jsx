@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styled from '@emotion/styled';
 import ImageCrypto from './img/imagen-criptos.png';
 import Form from './components/Form';
@@ -40,6 +40,17 @@ const Heading = styled.h1`
 `
 
 function App() {
+
+  const [coins, setCoins] = useState({});
+
+  useEffect(() => {
+    if (Object.keys(coins).length > 0) {
+      //has coins
+      console.log(coins);
+    }
+  },[coins]);
+
+
   return (
     <Container>
       <Image
@@ -48,7 +59,9 @@ function App() {
       />
       <div>
         <Heading>Evaluate Coins Instantly</Heading>
-        <Form/>
+        <Form
+          setCoins={setCoins}
+        />
       </div>
     </Container>
 

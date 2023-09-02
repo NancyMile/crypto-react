@@ -22,7 +22,7 @@ const InputSubmit = styled.input`
     }
 `
 
-const Form = () => {
+const Form = ({ setCoins }) => {
 
   const [crypto, setCrypto] = useState([]);
   const [selectedCurrency, SelectCoins] = useSelectCoins('Choose a coin', currency);
@@ -65,6 +65,10 @@ const Form = () => {
     }
 
     setError(false);
+    setCoins({
+      selectedCurrency,
+      selectedCrypto
+    })
   }
 
   return (
