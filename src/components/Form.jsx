@@ -2,6 +2,7 @@ import { useEffect, useState} from 'react'
 import styled from '@emotion/styled';
 import useSelectCoins from '../hooks/useSelectCoins';
 import { currency } from '../data/currency';
+import Error from './Error';
 
 const InputSubmit = styled.input`
     background-color: #9497FF;
@@ -26,6 +27,7 @@ const Form = () => {
   const [crypto, setCrypto] = useState([]);
   const [selectedCurrency, SelectCoins] = useSelectCoins('Choose a coin', currency);
   const [selectedCrypto, SelectCrypto] = useSelectCoins('Choose Crypto', crypto);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const queryAPI = async () => {
@@ -49,17 +51,34 @@ const Form = () => {
 
     queryAPI();
 
-  },[]);
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //console.log('sending form currency ', selectedCurrency);
+    //console.log('sending form crypto ',selectedCrypto);
+
+    if ([selectedCurrency, selectedCrypto].includes('')) {
+      //console.log('error');
+      setError(true);
+      return
+    }
+
+    setError(false);
+  }
 
   return (
-    <form>
-      <SelectCoins />
-      <SelectCrypto/>
-      <InputSubmit
-        type='submit'
-        value='Calculate'
-      />
-      </form>
+    <>
+      {error && <Error> Please selectand option</Error>}
+      <form onSubmit={handleSubmit}>
+        <SelectCoins />
+        <SelectCrypto/>
+        <InputSubmit
+          type='submit'
+          value='Calculate'
+        />
+        </form>
+    </>
   )
 }
 
