@@ -1,10 +1,17 @@
 import React from 'react'
+import styled from '@emotion/styled';
 
-const useSelectCoins = () => {
+const Label = styled.label`
+    color: #FFF;
+`
+
+const useSelectCoins = (label) => {
     
-    const SelectCoins = () => {
-        console.log('Select Coins');
-    }
+    const SelectCoins = () => (
+        <>
+            <Label>{label}</Label>
+        </>
+    )
 
     return [SelectCoins]
 
