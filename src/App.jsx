@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import ImageCrypto from './img/imagen-criptos.png';
 import Form from './components/Form';
 import Result from './components/Result';
+import Spinner from './components/Spinner';
 
 const Container = styled.div`
   max-width:900px;
@@ -44,6 +45,7 @@ function App() {
 
   const [coins, setCoins] = useState({});
   const [calculationResult, setCalculationResult] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (Object.keys(coins).length > 0) {
@@ -52,12 +54,15 @@ function App() {
       const { selectedCurrency, selectedCrypto } = coins
 
       const calculateCrypto = async () => {
+        setLoading(true)
+        setCalculationResult({}) //result empty wile gets the new result
         const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${selectedCrypto}&tsyms=${selectedCurrency}`;
         const response = await fetch(url)
         const result = await response.json()
         //console.log(result)
         //console.log(result.DISPLAY[selectedCrypto][selectedCurrency])
         setCalculationResult(result.DISPLAY[selectedCrypto][selectedCurrency]);
+        setLoading(false)
       }
       calculateCrypto();
     }
@@ -75,6 +80,7 @@ function App() {
         <Form
           setCoins={setCoins}
         />
+        {loading && <Spinner/>}
         {calculationResult.PRICE && <Result calculationResult={calculationResult} />}
       </div>
     </Container>
